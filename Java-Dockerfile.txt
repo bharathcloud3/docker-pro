@@ -1,0 +1,54 @@
+Sure! Below is a basic `Dockerfile` to run a Java program:
+
+```Dockerfile
+# Use an official Java runtime as a parent image
+FROM openjdk:11-jre-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Compile the Java application
+RUN javac HelloWorld.java
+
+# Run the Java application
+CMD ["java", "HelloWorld"]
+```
+
+In this `Dockerfile`:
+
+1. We're using the official `openjdk:11-jre-slim` image as our base image. This image includes the Java Runtime Environment (JRE) for Java 11.
+
+2. We set the working directory inside the container to `/app`.
+
+3. We copy the current directory (where the `Dockerfile` is located) into the `/app` directory in the container.
+
+4. We compile a Java file named `HelloWorld.java` that should be in the same directory as the `Dockerfile`.
+
+5. Finally, we run the compiled Java program using the `java HelloWorld` command when a container is started from this image.
+
+To build the Docker image, save this `Dockerfile` in a directory along with your `HelloWorld.java` file and run:
+
+```bash
+docker build -t java-app .
+```
+
+To run a container from the built image:
+
+```bash
+docker run java-app
+```
+
+Make sure your `HelloWorld.java` is a simple Java program like:
+
+```java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+This Dockerfile assumes that your Java source code file is named `HelloWorld.java`. Adjust the filenames accordingly if your source file has a different name.

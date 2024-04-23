@@ -1,0 +1,36 @@
+Sure! Below is an example of a Dockerfile to run a Spring Boot application with JDK 21:
+
+```Dockerfile
+# Use an official base image
+FROM openjdk:21-jdk-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the packaged jar file into the container
+COPY target/your-spring-app.jar /app/
+
+# Expose the port the app runs on
+EXPOSE 8080
+
+# Define the command to run your application
+CMD ["java", "-jar", "/app/your-spring-app.jar"]
+```
+
+Replace `your-spring-app.jar` with the actual name of your Spring Boot application's JAR file.
+
+Make sure you have built your Spring Boot application and have the JAR file available in the `target` directory before building the Docker image.
+
+To build the Docker image, navigate to the directory containing the Dockerfile and run:
+
+```bash
+docker build -t your-spring-app-image .
+```
+
+Once the image is built, you can run it using:
+
+```bash
+docker run -p 8080:8080 your-spring-app-image
+```
+
+This will run your Spring Boot application inside a Docker container with JDK 21. Adjust the port numbers if your Spring Boot application runs on a different port.

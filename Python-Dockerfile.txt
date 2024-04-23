@@ -1,0 +1,77 @@
+Certainly! Below is a simple example of a Python web application using Flask. Create a file named `app.py` in the same directory as your Dockerfile and add the following code:
+
+```python
+from flask import Flask
+
+# Create a Flask app
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return 'Hello, Dockerized Flask App!'
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
+```
+
+This code does the following:
+
+- Imports the Flask class from the `flask` module.
+  
+- Creates a new Flask web application instance.
+  
+- Defines a route `/` that returns a simple message "Hello, Dockerized Flask App!".
+  
+- Starts the Flask web server if the script is executed directly.
+
+Make sure to create a `requirements.txt` file in the same directory to list the Flask dependency:
+
+```
+Flask==2.0.2
+```
+
+Your directory structure should look something like this:
+
+```
+.
+├── Dockerfile
+├── app.py
+└── requirements.txt
+```
+
+With these files in place, you can build and run your Docker container:
+
+1. Build the Docker image:
+    ```
+    docker build -t my-python-web-app .
+    ```
+
+2. Run the Docker container:
+    ```
+    docker run -p 5000:5000 my-python-web-app
+    ```
+
+Now, you should be able to access your Flask web application by navigating to `http://localhost:5000` in your web browser. You should see the message "Hello, Dockerized Flask App!" displayed on the webpage.
+
+It seems like there might be a compatibility issue between the Flask version and the Werkzeug version installed in the Docker container. The error suggests that Flask is unable to import `url_quote` from Werkzeug.
+
+To fix this issue, you can specify the exact versions of Flask and Werkzeug in your `requirements.txt` file to ensure compatibility. Update your `requirements.txt` to include the specific versions:
+
+```
+Flask==2.0.2
+Werkzeug==2.0.2
+```
+
+After updating the `requirements.txt` file, rebuild your Docker image and run the container again:
+
+1. Build the Docker image:
+    ```
+    docker build -t my-python-web-app .
+    ```
+
+2. Run the Docker container:
+    ```
+    docker run -p 5000:5000 my-python-web-app
+    ```
+
+This should resolve the import error, and your Flask application should now run without any issues inside the Docker container.
